@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import Routes from "Routes";
+import { AppContextProvider } from "hooks";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <AppContextProvider>
+    <Routes />
+  </AppContextProvider>,
   document.getElementById("root")
 );
