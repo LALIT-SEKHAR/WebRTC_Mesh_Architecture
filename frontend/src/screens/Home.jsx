@@ -26,7 +26,7 @@ const Home = () => {
             <h1>Home</h1>
             <button onClick={InitiateMeet}>Start Meet</button>
             {IsMeetCreated && <Link to={`/${MeetId.current}`}><button id="enterRoom">Enter Room</button></Link>}
-            <video ref={VideoTag} autoPlay muted></video>
+            <video height="500" ref={VideoTag} autoPlay muted></video>
         </div>
     );
 };

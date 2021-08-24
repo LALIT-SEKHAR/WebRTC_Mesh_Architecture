@@ -54,11 +54,16 @@ io.on("connection", (socket) => {
     socket.to(payload.memberId).emit("ice_candidate", {
       ice_candidate: payload.ice_candidate,
       memberId: socket.id,
+      sender: payload.memberId,
     });
   });
 
   socket.on("answer", (payload) => {
-    socket.to(payload.memberId).emit("answer", payload);
+    socket.to(payload.memberId).emit("answer", {
+      answer: payload.answer,
+      memberId: socket.id,
+      sender: payload.memberId,
+    });
   });
 
   socket.on("disconnect", (e) => {

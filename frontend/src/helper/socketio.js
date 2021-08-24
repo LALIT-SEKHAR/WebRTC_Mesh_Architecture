@@ -15,19 +15,17 @@ export const initiate_Socket_Connection = async (payload) => {
   window.socket.on("new_member_connect", (data) => console.log(data));
   window.socket.on("send_offer", (data) => {
     data.MeetParticipant.map((participant) => {
-      RtcSender({ id: participant });
+      return RtcSender({ id: participant });
     });
   });
   window.socket.on("offer", (data) => {
     RtcReceive({ offer: data.offer, memberId: data.memberId });
   });
   window.socket.on("answer", (data) => {
-    console.log("set answer: ", data);
-    RtcSetAnswer({ answer: data.answer });
+    RtcSetAnswer(data);
   });
   window.socket.on("ice_candidate", (data) => {
-    console.log(data.ice_candidate);
-    RtcSetIce_candidate({ Ice_candidate: data.ice_candidate });
+    RtcSetIce_candidate(data);
   });
 };
 

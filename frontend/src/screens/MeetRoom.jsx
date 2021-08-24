@@ -1,18 +1,27 @@
 import { initiate_Socket_Connection } from 'helper/socketio';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 const MeetRoom = () => {
 
-    const {MeetId} = useParams()
+    const {MeetId} = useParams();
+    const myVideo = useRef();
 
     useEffect(()=>{
-        initiate_Socket_Connection({MeetId})
+        init()
     })
+
+    const init = async () => {
+        await initiate_Socket_Connection({MeetId})
+        myVideo.current.srcObject = window.VideoStream
+    }
 
     return (
         <div >
             <h1>{MeetId}</h1> 
+            <video height="500" muted autoPlay ref={myVideo}></video>
+            <div id="clientVideoHolder">
+            </div>
         </div>
     );
 };
