@@ -26,6 +26,14 @@ export const initiate_Socket_Connection = async (payload) => {
   window.socket.on("ice_candidate", (data) => {
     RtcSetIce_candidate(data);
   });
+  window.socket.on("member_exit", (data) => {
+    console.log(data);
+    window.RtcPeers.forEach((member, index) => {
+      if (member.id === data) {
+        console.log(window.RtcPeers[index]);
+      }
+    });
+  });
 };
 
 export const send_offer = (payload) => {
