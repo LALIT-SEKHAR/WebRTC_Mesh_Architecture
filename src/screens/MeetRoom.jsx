@@ -18,9 +18,9 @@ const MeetRoom = () => {
 
     return (
         <div >
-            <h1>{MeetId}</h1> 
-            <video height="500" muted autoPlay ref={myVideo}></video>
+            {/* <h1>{MeetId}</h1>  */}
             <div id="clientVideoHolder">
+                <video height="500" muted autoPlay ref={myVideo}></video>
             </div>
         </div>
     );
