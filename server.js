@@ -68,6 +68,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", (e) => {
     console.log(socket.id);
+    socket.emit("member_exit", socket.id);
   });
 });
 
