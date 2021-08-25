@@ -137,7 +137,6 @@ const handelOnTrack = (e) => {
     videoTag.autoplay = true;
     videoTag.muted = true;
     videoTag.autoplay = true;
-    videoTag.height = 500;
     videoTag.className = "clientVideo";
     videoTag.srcObject = mediaStream;
   }

@@ -1,6 +1,7 @@
 import { initiate_Socket_Connection } from 'helper/socketio';
 import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import MR from "../css/MeetRoom.module.css";
 
 const MeetRoom = () => {
 
@@ -17,10 +18,9 @@ const MeetRoom = () => {
     }
 
     return (
-        <div >
-            {/* <h1>{MeetId}</h1>  */}
-            <div id="clientVideoHolder">
-                <video height="500" muted autoPlay ref={myVideo}></video>
+        <div className={MR.Container}>
+            <div id="clientVideoHolder" className={MR.VideoContainer}>
+                <video muted autoPlay ref={myVideo}></video>
             </div>
         </div>
     );

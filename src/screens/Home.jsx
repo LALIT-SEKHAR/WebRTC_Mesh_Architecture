@@ -22,11 +22,11 @@ const Home = () => {
     }
 
     return (
-        <div>
+        <div className="home">
             <h1>Home</h1>
             <button onClick={InitiateMeet}>Start Meet</button>
+            <video id="myVideoTag" ref={VideoTag} autoPlay muted></video>
             {IsMeetCreated && <Link to={`/${MeetId.current}`}><button id="enterRoom">Enter Room</button></Link>}
-            <video height="500" ref={VideoTag} autoPlay muted></video>
         </div>
     );
 };
