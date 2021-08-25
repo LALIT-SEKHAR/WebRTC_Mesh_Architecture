@@ -12,7 +12,6 @@ export const initiate_Socket_Connection = async (payload) => {
   !window.AudioStream && (await getAudioStream());
   window.socket = io.connect(process.env.REACT_APP_SERVER_ENDPOINT);
   window.socket.emit("join_meet", payload);
-  window.socket.on("new_member_connect", (data) => console.log(data));
   window.socket.on("send_offer", (data) => {
     data.MeetParticipant.map((participant) => {
       return RtcSender({ id: participant });

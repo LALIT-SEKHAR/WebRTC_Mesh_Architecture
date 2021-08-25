@@ -70,7 +70,6 @@ export const RtcSetAnswer = (answer) => {
 
 //for Set Ice_candidate
 export const RtcSetIce_candidate = (Ice_candidate) => {
-  console.log(Ice_candidate.memberId);
   window.RtcPeers.forEach((member, index) => {
     if (member.id === Ice_candidate.memberId) {
       window.RtcPeers[index].peer
