@@ -17,6 +17,8 @@ export const RtcSender = async (person) => {
   window.RtcPeers.push(memberInfo);
   window.RtcPeers.forEach((member, index) => {
     if (member.id === person.id) {
+      window.RtcPeers[index].peer.oniceconnectionstatechange = () =>
+        handelOnIceConnectionStateChange(window.RtcPeers[index].peer);
       window.RtcPeers[index].peer.onnegotiationneeded = (e) =>
         handelCreateOffer({
           peer: window.RtcPeers[index].peer,
@@ -45,6 +47,9 @@ export const RtcReceive = ({ memberId, offer }) => {
     window.RtcPeers.push(memberInfo);
     window.RtcPeers.forEach((member, index) => {
       if (member.id === memberId) {
+        window.RtcPeers[index].peer.oniceconnectionstatechange = () => {
+          handelOnIceConnectionStateChange(window.RtcPeers[index].peer);
+        };
         window.RtcPeers[index].peer.setRemoteDescription(offer).then((e) => {});
         handelCreateAnswer({ peer: window.RtcPeers[index].peer, memberId });
       }
