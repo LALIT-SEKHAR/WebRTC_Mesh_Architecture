@@ -1,6 +1,6 @@
 export const getVideoStream = () => {
   return navigator.mediaDevices
-    .getUserMedia({ video: true })
+    .getUserMedia({ video: { width: 480, height: 480 } })
     .then((stream) => {
       window.VideoStream = stream;
       return stream;
