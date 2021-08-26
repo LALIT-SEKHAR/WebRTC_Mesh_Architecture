@@ -2,6 +2,7 @@ export const getVideoStream = () => {
   return navigator.mediaDevices
     .getUserMedia({ video: { width: 480, height: 480 } })
     .then((stream) => {
+      window.mediaStream = stream;
       window.VideoStream = stream;
       return stream;
     })
@@ -12,6 +13,10 @@ export const getAudioStream = () => {
   return navigator.mediaDevices
     .getUserMedia({ audio: true })
     .then((stream) => {
+      window.mediaStream.addTrack(
+        stream.getAudioTracks()[0],
+        window.mediaStream
+      );
       window.AudioStream = stream;
       return stream;
     })

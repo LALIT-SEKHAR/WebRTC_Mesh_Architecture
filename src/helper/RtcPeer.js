@@ -9,14 +9,16 @@ export const RtcSender = async (person) => {
   peer.onconnectionstatechange = () => handelOnConnectionStateChange(peer);
   peer.oniceconnectionstatechange = () =>
     handelOnIceConnectionStateChange(peer);
-  peer.ontrack = handelOnTrack;
   let memberInfo = {
     id: person.id,
     peer: peer,
+    mediaStream: new MediaStream(),
   };
   window.RtcPeers.push(memberInfo);
   window.RtcPeers.forEach((member, index) => {
     if (member.id === person.id) {
+      window.RtcPeers[index].peer.ontrack = (e) =>
+        handelOnTrack({ e, mediaStream: window.RtcPeers[index].mediaStream });
       window.RtcPeers[index].peer.oniceconnectionstatechange = () =>
         handelOnIceConnectionStateChange(window.RtcPeers[index].peer);
       window.RtcPeers[index].peer.onnegotiationneeded = (e) =>
@@ -39,14 +41,16 @@ export const RtcReceive = ({ memberId, offer }) => {
     peer.oniceconnectionstatechange = () => {
       handelOnIceConnectionStateChange(peer);
     };
-    peer.ontrack = handelOnTrack;
     let memberInfo = {
       id: memberId,
       peer: peer,
+      mediaStream: new MediaStream(),
     };
     window.RtcPeers.push(memberInfo);
     window.RtcPeers.forEach((member, index) => {
       if (member.id === memberId) {
+        window.RtcPeers[index].peer.ontrack = (e) =>
+          handelOnTrack({ e, mediaStream: window.RtcPeers[index].mediaStream });
         window.RtcPeers[index].peer.oniceconnectionstatechange = () => {
           handelOnIceConnectionStateChange(window.RtcPeers[index].peer);
         };
@@ -127,8 +131,7 @@ const handelCreateAnswer = ({ peer, memberId }) => {
     );
 };
 
-const handelOnTrack = (e) => {
-  const mediaStream = new MediaStream();
+const handelOnTrack = ({ e, mediaStream }) => {
   mediaStream.addTrack(e.track, mediaStream);
   if (e.track.kind === "video") {
     const videoTagHolder = document.getElementById("clientVideoHolder");
@@ -143,11 +146,8 @@ const handelOnTrack = (e) => {
 };
 
 const addMediaTracks = async ({ peer }) => {
-  await window.VideoStream.getTracks().forEach((track) => {
-    peer.addTrack(track, window.VideoStream);
-  });
-  await window.AudioStream.getTracks().forEach((track) => {
-    peer.addTrack(track, window.AudioStream);
+  await window.mediaStream.getTracks().forEach((track) => {
+    peer.addTrack(track, window.mediaStream);
   });
 };
 

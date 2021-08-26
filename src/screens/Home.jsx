@@ -14,10 +14,7 @@ const Home = () => {
     const InitiateMeet = async () => {
         const UserVideoStream = await getVideoStream();
         VideoTag.current.srcObject = UserVideoStream;
-        const UserAudioStream = await getAudioStream()
-        const audio = new Audio()
-        audio.srcObject = UserAudioStream;
-        audio.play()
+        await getAudioStream()
         setIsMeetCreated(true)
     }
 
