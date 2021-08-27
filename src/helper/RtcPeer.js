@@ -164,9 +164,9 @@ const handelOnConnectionStateChange = (peer) => {
     case "connected":
       console.log("connected");
       break;
-    case "disconnected":
-      window.location.replace("/");
-      break;
+    // case "disconnected":
+    //   window.location.replace("/");
+    //   break;
     default:
       break;
   }
